@@ -8,8 +8,8 @@ use Net::Whois::Raw;
 use vars qw(@ISA @EXPORT $VERSION);
 
 @ISA = qw(Exporter);
-@EXPORT = qw( expire_date expdate_fmt expdate_int );
-$VERSION = '0.01';
+@EXPORT = qw( expire_date expdate_fmt expdate_int howmany_days_passed );
+$VERSION = '0.02';
 
 # for Net::Whois::Raw
 $OMIT_MSG = 2;
@@ -51,6 +51,15 @@ sub expdate_int {
 	return expdate_int_cno( $whois );
     }
 }
+
+sub howmany_days_passed {
+    my ($time) = @_;
+    my $now = localtime();
+    my $seconds = $now - $time;
+    return int( $seconds / ONE_DAY );
+}
+
+# --- internal functions ----
 
 sub decode_date {
     my ($date, $format) = @_;
@@ -251,7 +260,7 @@ of domain names
 
 =head1 SYNOPSIS
 
- use ExpireDate;
+ use Net::Domain::ExpireDate;
 
  $date = expire_date( 'microsoft.com' );
  $str  = expire_date( 'microsoft.com', '%Y-%m-%d' );

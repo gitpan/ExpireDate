@@ -8,7 +8,7 @@ of domain names
 
 SYNOPSIS
 
-use ExpireDate;
+use Net::Domain::ExpireDate;
 
 $date = expire_date( 'microsoft.com' );
 $str  = expire_date( 'microsoft.com', '%Y-%m-%d' );
